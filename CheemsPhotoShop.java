@@ -14,6 +14,7 @@ public class CheemsPhotoShop extends JFrame {
     private Container contents;
     private JLabel imagen;
     private BufferedImage buff;
+    // holaaa
 
     // Archivos
     FileInputStream entrada;

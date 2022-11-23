@@ -3,14 +3,15 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.io.*;
+import java.util.concurrent.ExecutorService;
 import java.awt.image.*;
 import javax.imageio.ImageIO;
 
 public class CheemsPhotoShop extends JFrame {
     private JMenuBar arc;
-    private JMenu uno, dos, tres, cuatro, cinco, seis, siete;
-    private JMenuItem u1, u2, u3, u4, d1, d2, d3, d4, d5, e1,
-            e2, e3, e4, r1, r2, r3, r4, x1, x2, s1, s2, a1;
+    private JMenu uno, dos, tres, cuatro, cinco, seis, siete, ocho;
+    private JMenuItem u1, u2, u3, u4, d1, d2, d3, d4, d5, e1, e2, e3, e4,
+            r1, r2, r3, r4, x1, x2, s1, s2, rgb1, rgb2, rgb3, a1;
     private Container contents;
     private JLabel imagen;
     private BufferedImage buff;
@@ -91,7 +92,15 @@ public class CheemsPhotoShop extends JFrame {
         s2 = new JMenuItem("Mosaico");
         s2.addActionListener(alter);
 
-        siete = new JMenu("Ayuda");
+        siete = new JMenu("RGB");
+        rgb1 = new JMenuItem("Rojo");
+        rgb1.addActionListener(alter);
+        rgb2 = new JMenuItem("Verde");
+        rgb2.addActionListener(alter);
+        rgb3 = new JMenuItem("Azul");
+        rgb3.addActionListener(alter);
+
+        ocho = new JMenu("Ayuda");
         a1 = new JMenuItem("Acerca de");
         a1.addActionListener(alter);
 
@@ -131,7 +140,12 @@ public class CheemsPhotoShop extends JFrame {
         seis.add(s2);
 
         arc.add(siete);
-        siete.add(a1);
+        siete.add(rgb1);
+        siete.add(rgb2);
+        siete.add(rgb3);
+
+        arc.add(ocho);
+        ocho.add(a1);
 
         contents.add(imagen, BorderLayout.CENTER);
         setSize(500, 400);
@@ -588,6 +602,102 @@ public class CheemsPhotoShop extends JFrame {
         imagen.setIcon(icon);
     }
 
+    // Funcion para mostrar la escala de verdes
+    private void EscalaVerdes() {
+        int ancho = buff.getWidth();
+        int alto = buff.getHeight();
+        BufferedImage buff2 = new BufferedImage(ancho, alto, BufferedImage.TYPE_INT_RGB);
+        for (int i = 0; i < ancho; i++) {
+            for (int j = 0; j < alto; j++) {
+                Color c = new Color(buff.getRGB(i, j));
+                int r = c.getRed();
+                int g = c.getGreen();
+                int b = c.getBlue();
+                int r2 = 0;
+                int g2 = 0;
+                int b2 = 0;
+                if (g > r && g > b) {
+                    r2 = r;
+                    g2 = g;
+                    b2 = b;
+                } else {
+                    r2 = 0;
+                    g2 = 0;
+                    b2 = 0;
+                }
+                Color c2 = new Color(r2, g2, b2);
+                buff2.setRGB(i, j, c2.getRGB());
+            }
+        }
+        buff = buff2;
+        ImageIcon icon = new ImageIcon(buff);
+        imagen.setIcon(icon);
+    }
+
+    // Funcion para mostrar la escala de azules
+    private void EscalaAzules() {
+        int ancho = buff.getWidth();
+        int alto = buff.getHeight();
+        BufferedImage buff2 = new BufferedImage(ancho, alto, BufferedImage.TYPE_INT_RGB);
+        for (int i = 0; i < ancho; i++) {
+            for (int j = 0; j < alto; j++) {
+                Color c = new Color(buff.getRGB(i, j));
+                int r = c.getRed();
+                int g = c.getGreen();
+                int b = c.getBlue();
+                int r2 = 0;
+                int g2 = 0;
+                int b2 = 0;
+                if (b > r && b > g) {
+                    r2 = r;
+                    g2 = g;
+                    b2 = b;
+                } else {
+                    r2 = 0;
+                    g2 = 0;
+                    b2 = 0;
+                }
+                Color c2 = new Color(r2, g2, b2);
+                buff2.setRGB(i, j, c2.getRGB());
+            }
+        }
+        buff = buff2;
+        ImageIcon icon = new ImageIcon(buff);
+        imagen.setIcon(icon);
+    }
+
+    // Funcion para mostrar la escala de rojos
+    private void EscalaRojos() {
+        int ancho = buff.getWidth();
+        int alto = buff.getHeight();
+        BufferedImage buff2 = new BufferedImage(ancho, alto, BufferedImage.TYPE_INT_RGB);
+        for (int i = 0; i < ancho; i++) {
+            for (int j = 0; j < alto; j++) {
+                Color c = new Color(buff.getRGB(i, j));
+                int r = c.getRed();
+                int g = c.getGreen();
+                int b = c.getBlue();
+                int r2 = 0;
+                int g2 = 0;
+                int b2 = 0;
+                if (r > g && r > b) {
+                    r2 = r;
+                    g2 = g;
+                    b2 = b;
+                } else {
+                    r2 = 0;
+                    g2 = 0;
+                    b2 = 0;
+                }
+                Color c2 = new Color(r2, g2, b2);
+                buff2.setRGB(i, j, c2.getRGB());
+            }
+        }
+        buff = buff2;
+        ImageIcon icon = new ImageIcon(buff);
+        imagen.setIcon(icon);
+    }
+
     private class PHandler implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == u1) { // Abrir imagen
@@ -669,6 +779,12 @@ public class CheemsPhotoShop extends JFrame {
                 Desenfocar();
             } else if (e.getSource() == s2) { // Hacer el efecto mosaico
                 Mosaico();
+            } else if (e.getSource() == rgb1) {
+                EscalaRojos();
+            } else if (e.getSource() == rgb2) {
+                EscalaVerdes();
+            } else if (e.getSource() == rgb3) {
+                EscalaAzules();
             } else if (e.getSource() == a1) { // Mostrar informacion del proyecto
                 JOptionPane.showMessageDialog(null, "Hecho por Diego Alberto Aranda Gonzalez\n"
                         + "Universidad Autonoma de Aguascalientes\n" + "Materia de Lenguajes de Programacion III\n");

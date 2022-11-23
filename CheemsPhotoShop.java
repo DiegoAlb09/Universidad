@@ -3,7 +3,6 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.io.*;
-import java.util.concurrent.ExecutorService;
 import java.awt.image.*;
 import javax.imageio.ImageIO;
 
@@ -779,11 +778,11 @@ public class CheemsPhotoShop extends JFrame {
                 Desenfocar();
             } else if (e.getSource() == s2) { // Hacer el efecto mosaico
                 Mosaico();
-            } else if (e.getSource() == rgb1) {
+            } else if (e.getSource() == rgb1) { // Muestra en la imagen los pixeles rojos
                 EscalaRojos();
-            } else if (e.getSource() == rgb2) {
+            } else if (e.getSource() == rgb2) { // Muestra en la imagen los pixeles verdes
                 EscalaVerdes();
-            } else if (e.getSource() == rgb3) {
+            } else if (e.getSource() == rgb3) { // Muestra en la imagen los pixeles azules
                 EscalaAzules();
             } else if (e.getSource() == a1) { // Mostrar informacion del proyecto
                 JOptionPane.showMessageDialog(null, "Hecho por Diego Alberto Aranda Gonzalez\n"
